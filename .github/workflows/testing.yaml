@@ -40,7 +40,9 @@ jobs:
           coverage: none
           tools: composer:v2
       - name: "Run PHPstam"
-        run: "composer test:php:stan"
+        uses: typo3-continuous-integration/typo3-ci-phpstan@v1
+        with:
+          config_file: '/.project/tests/phpstan.neon'
     strategy:
       fail-fast: false
       matrix:
