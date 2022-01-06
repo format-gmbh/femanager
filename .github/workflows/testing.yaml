@@ -39,10 +39,10 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           coverage: none
           tools: composer:v2
-      - name: "Run PHPstam"
+      - name: "Run PHPstan"
         uses: typo3-continuous-integration/typo3-ci-phpstan@v1
         with:
-          config_file: '/.project/tests/phpstan.neon'
+          config_file: '.project/tests/phpstan.neon'
     strategy:
       fail-fast: false
       matrix:
