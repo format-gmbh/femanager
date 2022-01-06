@@ -1,5 +1,7 @@
 parameters:
   level: 6
+  scanDirectories:
+    - ../../.Build
   paths:
     - ../../Classes
     - ../../Configuration

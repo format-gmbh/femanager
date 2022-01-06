@@ -43,6 +43,7 @@ jobs:
         uses: typo3-continuous-integration/typo3-ci-phpstan@v1
         with:
           config_file: '.project/tests/phpstan.neon'
+        continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
