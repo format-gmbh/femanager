@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace In2code\Femanager\ViewHelpers\Misc;
 
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 
 /**
@@ -19,13 +20,13 @@ class GetFirstViewHelper extends AbstractFormFieldViewHelper
     {
         parent::initializeArguments();
         $this->registerUniversalTagAttributes();
-        $this->registerArgument('objectStorage', 'object', 'first subobject of objectstorage', false);
+        $this->registerArgument('objectStorage', ObjectStorage::class, 'first subobject of objectstorage', false);
     }
 
     /**
      * View helper to get first subobject of objectstorage
      *
-     * @return \mixed
+     * @return mixed
      */
     public function render()
     {

@@ -60,7 +60,7 @@ class UserOptions
         $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
         $depth = $params['flexParentDatabaseRow']['recursive'];
         foreach ($this->getPages($params) as $pageIdentifier) {
-            $list .= $queryGenerator->getTreeList($pageIdentifier, $depth, 0, 1);
+            $list .= $queryGenerator->getTreeList($pageIdentifier, $depth, 0, '1');
             $list .= ',';
         }
         return rtrim($list, ',');

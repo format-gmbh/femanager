@@ -145,20 +145,20 @@ class ImageManipulation extends AbstractDataProcessor
 
     /**
      * @param array $arguments
-     * @param $property
+     * @param string $property
      * @return bool
      */
-    protected function isFileIdentifierGiven(array $arguments, $property): bool
+    protected function isFileIdentifierGiven(array $arguments, string $property): bool
     {
         return !empty($arguments['user'][$property][0]['__identity']);
     }
 
     /**
      * @param array $arguments
-     * @param $property
+     * @param string $property
      * @return bool
      */
-    protected function isUploadError(array $arguments, $property): bool
+    protected function isUploadError(array $arguments, string $property): bool
     {
         return !empty($arguments['user'][$property][0]['error']);
     }

@@ -102,7 +102,7 @@ abstract class AbstractFinisher implements FinisherInterface
     }
 
     /**
-     * @param null $actionMethodName
+     * @param string $actionMethodName
      * @return AbstractFinisher
      */
     public function setActionMethodName($actionMethodName)

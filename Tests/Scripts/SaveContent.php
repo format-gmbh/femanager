@@ -24,7 +24,7 @@ class SaveContent
             'CType' => 'text',
             'bodytext' => print_r(GeneralUtility::_POST(), true) . '<p>[deleteme]</p>'
         ];
-        /** @var $databaseconnection ConnectionPool */
+        /** @var ConnectionPool $databaseconnection */
         $databaseconnection = GeneralUtility::makeInstance(ConnectionPool::class);
         $databaseconnection->getConnectionForTable('tt_content')->insert('tt_content', $data);
         return 'New content element created on page 29';

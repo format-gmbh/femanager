@@ -248,12 +248,12 @@ class NewController extends AbstractFrontendController
      * Status action: Admin refused profile creation (normal or silent)
      *
      * @param User $user
-     * @param $hash
-     * @param $status
+     * @param string $hash
+     * @param string $status
      * @return bool allow further functions
      * @throws IllegalObjectTypeException
      */
-    protected function statusAdminConfirmationRefused(User $user, $hash, $status)
+    protected function statusAdminConfirmationRefused(User $user, string $hash, string $status)
     {
         if (HashUtility::validHash($hash, $user)) {
             $this->logUtility->log(Log::STATUS_REGISTRATIONREFUSEDADMIN, $user);

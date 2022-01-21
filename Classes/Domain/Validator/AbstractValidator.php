@@ -60,9 +60,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * Validation for required
      *
      * @param mixed $value
-     * @return \bool
+     * @return bool
      */
-    protected function validateRequired($value)
+    protected function validateRequired($value): bool
     {
         if (!is_object($value)) {
             if (is_numeric($value)) {
@@ -83,9 +83,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * Validation for email
      *
      * @param string $value
-     * @return \bool
+     * @return bool
      */
-    protected function validateEmail($value)
+    protected function validateEmail(string $value): bool
     {
         return GeneralUtility::validEmail($value);
     }
@@ -95,9 +95,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSetting
-     * @return \bool
+     * @return bool
      */
-    protected function validateMin($value, $validationSetting)
+    protected function validateMin(string $value, string $validationSetting): bool
     {
         if (mb_strlen($value) < $validationSetting) {
             return false;
@@ -110,9 +110,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSetting
-     * @return \bool
+     * @return bool
      */
-    protected function validateMax($value, $validationSetting)
+    protected function validateMax(string $value, string $validationSetting): bool
     {
         if (mb_strlen($value) > $validationSetting) {
             return false;
@@ -124,9 +124,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * Validation for Numbers only
      *
      * @param string $value
-     * @return \bool
+     * @return bool
      */
-    protected function validateInt($value)
+    protected function validateInt(string $value): bool
     {
         return is_numeric($value);
     }
@@ -135,9 +135,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * Validation for Letters (a-zA-Z), hyphen and underscore
      *
      * @param string $value
-     * @return \bool
+     * @return bool
      */
-    protected function validateLetters($value)
+    protected function validateLetters(string $value): bool
     {
         if (preg_replace('/[^a-zA-Z_-]/', '', $value) === $value) {
             return true;
@@ -149,9 +149,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * Validation for all Unicode letters, hyphen and underscore
      *
      * @param string $value
-     * @return \bool
+     * @return bool
      */
-    protected function validateUnicodeLetters($value)
+    protected function validateUnicodeLetters(string $value): bool
     {
         return (bool)preg_match('/^[\pL_-]+$/u', $value);
     }
@@ -162,7 +162,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @param string $field
      * @param User $user Existing User
-     * @return \bool
+     * @return bool
      */
     protected function validateUniquePage($value, $field, User $user = null)
     {
@@ -175,10 +175,10 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $field Fieldname like "username" or "email"
-     * @param User $user Existing User
-     * @return \bool
+     * @param ?User $user Existing User
+     * @return bool
      */
-    protected function validateUniqueDb($value, $field, User $user = null)
+    protected function validateUniqueDb(string $value, string $field, User $user = null): bool
     {
         $foundUser = $this->userRepository->checkUniqueDb($field, $value, $user);
 
@@ -193,9 +193,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSettingList
-     * @return \bool
+     * @return bool
      */
-    protected function validateMustInclude($value, $validationSettingList)
+    protected function validateMustInclude(string $value, string $validationSettingList): bool
     {
         $isValid = true;
         $validationSettings = GeneralUtility::trimExplode(',', $validationSettingList, true);
@@ -237,9 +237,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSettingList
-     * @return \bool
+     * @return bool
      */
-    protected function validateMustNotInclude($value, $validationSettingList)
+    protected function validateMustNotInclude(string $value, string $validationSettingList): bool
     {
         $isValid = true;
         $validationSettings = GeneralUtility::trimExplode(',', $validationSettingList, true);
@@ -282,7 +282,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @return bool
      */
-    protected function stringContainsNumber($value)
+    protected function stringContainsNumber(string $value): bool
     {
         return strlen(preg_replace('/[^0-9]/', '', $value)) > 0;
     }
@@ -293,7 +293,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @return bool
      */
-    protected function stringContainsLetter($value)
+    protected function stringContainsLetter(string $value): bool
     {
         return strlen(preg_replace('/[^a-zA-Z_-]/', '', $value)) > 0;
     }
@@ -304,7 +304,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @return bool
      */
-    protected function stringContainsUppercase($value)
+    protected function stringContainsUppercase(string $value): bool
     {
         return strlen(preg_replace('/[^A-Z]/', '', $value)) > 0;
     }
@@ -315,7 +315,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @return bool
      */
-    protected function stringContainsSpecialCharacter($value)
+    protected function stringContainsSpecialCharacter(string $value): bool
     {
         return strlen(preg_replace('/[^a-zA-Z0-9]/', '', $value)) !== strlen($value);
     }
@@ -326,7 +326,7 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      * @param string $value
      * @return bool
      */
-    protected function stringContainsSpaceCharacter($value)
+    protected function stringContainsSpaceCharacter(string $value): bool
     {
         return strpos($value, ' ') !== false;
     }
@@ -336,9 +336,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSettingList
-     * @return \bool
+     * @return bool
      */
-    protected function validateInList($value, $validationSettingList)
+    protected function validateInList(string $value, string $validationSettingList): bool
     {
         $validationSettings = GeneralUtility::trimExplode(',', $validationSettingList, true);
         return in_array($value, $validationSettings);
@@ -349,9 +349,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $value2
-     * @return \bool
+     * @return bool
      */
-    protected function validateSameAs($value, $value2)
+    protected function validateSameAs(string $value, string $value2): bool
     {
         if ($value === $value2) {
             return true;
@@ -364,9 +364,9 @@ abstract class AbstractValidator extends AbstractValidatorExtbase
      *
      * @param string $value
      * @param string $validationSetting
-     * @return \bool
+     * @return bool
      */
-    protected function validateDate($value, $validationSetting)
+    protected function validateDate(string $value, string $validationSetting): bool
     {
         $dateParts = [];
         switch ($validationSetting) {

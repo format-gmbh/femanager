@@ -291,10 +291,10 @@ abstract class AbstractController extends ActionController
      * Log user in
      *
      * @param User $user
-     * @param $login
+     * @param bool $login
      * @throws IllegalObjectTypeException
      */
-    protected function loginPreflight(User $user, $login)
+    protected function loginPreflight(User $user, bool $login)
     {
         if ($login) {
             // persist user (otherwise login may not be possible)

@@ -29,7 +29,6 @@ class GetCountriesFromStaticInfoTablesViewHelper extends AbstractViewHelper
     /**
      * Build an country array
      *
-     * @param string $sorting
      * @return array
      */
     public function render(): array

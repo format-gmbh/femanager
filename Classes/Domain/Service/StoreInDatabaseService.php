@@ -26,7 +26,7 @@ class StoreInDatabaseService
     protected $properties = [];
 
     /**
-     * @var \TYPO3\CMS\CORE\Database\ConnectionPool
+     * @var \TYPO3\CMS\Core\Database\ConnectionPool
      */
     protected $databaseConnection = null;
 
@@ -35,7 +35,7 @@ class StoreInDatabaseService
      *
      * @return int uid of inserted record
      */
-    public function execute()
+    public function execute(): int
     {
         $insertTable = $this->databaseConnection->getConnectionForTable($this->getTable());
         $insertTable->insert(
@@ -51,7 +51,7 @@ class StoreInDatabaseService
      *
      * @param string $table
      */
-    public function setTable($table)
+    public function setTable(string $table)
     {
         $table = preg_replace('/[^a-zA-Z0-9_-]/', '', $table);
         $this->table = $table;
@@ -62,7 +62,7 @@ class StoreInDatabaseService
      *
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return $this->table;
     }
@@ -72,7 +72,7 @@ class StoreInDatabaseService
      *
      * @return array
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -80,10 +80,10 @@ class StoreInDatabaseService
     /**
      * Add property/value pair to array
      *
-     * @param $propertyName
-     * @param $value
+     * @param string $propertyName
+     * @param string $value
      */
-    public function addProperty($propertyName, $value)
+    public function addProperty(string $propertyName, string $value)
     {
         $propertyName = preg_replace('/[^a-zA-Z0-9_-]/', '', $propertyName);
         $this->properties[$propertyName] = $value;
@@ -92,9 +92,9 @@ class StoreInDatabaseService
     /**
      * Remove property/value pair form array by its key
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
-    public function removeProperty($propertyName)
+    public function removeProperty(string $propertyName)
     {
         unset($this->properties[$propertyName]);
     }

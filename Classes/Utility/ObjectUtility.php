@@ -88,16 +88,14 @@ class ObjectUtility extends AbstractUtility
      * @param string $glue
      * @return string
      */
-    public static function implodeObjectStorageOnProperty($objectStorage, $property = 'uid', $glue = ', '): string
+    public static function implodeObjectStorageOnProperty(ObjectStorage $objectStorage, string $property = 'uid', string $glue = ', '): string
     {
         $values = [];
-        if (!empty($objectStorage)) {
-            foreach ($objectStorage as $object) {
-                try {
-                    $values[] = ObjectAccess::getProperty($object, $property);
-                } catch (\Exception $exception) {
-                    unset($exception);
-                }
+        foreach ($objectStorage as $object) {
+            try {
+                $values[] = ObjectAccess::getProperty($object, $property);
+            } catch (\Exception $exception) {
+                unset($exception);
             }
         }
         return implode($glue, $values);

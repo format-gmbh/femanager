@@ -95,7 +95,7 @@ class User extends FrontendUser
      */
     protected $state = '';
 
-    public function removeAllUsergroups()
+    public function removeAllUsergroups(): void
     {
         $this->usergroup = new ObjectStorage();
     }
@@ -104,7 +104,7 @@ class User extends FrontendUser
      * @param string $txFemanagerChangerequest
      * @return User
      */
-    public function setTxFemanagerChangerequest($txFemanagerChangerequest)
+    public function setTxFemanagerChangerequest(string $txFemanagerChangerequest): User
     {
         $this->txFemanagerChangerequest = $txFemanagerChangerequest;
         return $this;
@@ -113,7 +113,7 @@ class User extends FrontendUser
     /**
      * @return string
      */
-    public function getTxFemanagerChangerequest()
+    public function getTxFemanagerChangerequest(): string
     {
         return $this->txFemanagerChangerequest;
     }
@@ -122,7 +122,7 @@ class User extends FrontendUser
      * @param \DateTime $crdate
      * @return User
      */
-    public function setCrdate($crdate)
+    public function setCrdate(\DateTime $crdate): User
     {
         $this->crdate = $crdate;
         return $this;
@@ -131,7 +131,7 @@ class User extends FrontendUser
     /**
      * @return \DateTime
      */
-    public function getCrdate()
+    public function getCrdate(): \DateTime
     {
         if ($this->crdate === null) {
             // timestamp is zero
@@ -144,7 +144,7 @@ class User extends FrontendUser
      * @param \DateTime $tstamp
      * @return User
      */
-    public function setTstamp($tstamp)
+    public function setTstamp(\DateTime $tstamp): User
     {
         $this->tstamp = $tstamp;
         return $this;
@@ -153,7 +153,7 @@ class User extends FrontendUser
     /**
      * @return \DateTime
      */
-    public function getTstamp()
+    public function getTstamp(): \DateTime
     {
         return $this->tstamp;
     }
@@ -162,7 +162,7 @@ class User extends FrontendUser
      * @param bool $disable
      * @return User
      */
-    public function setDisable($disable)
+    public function setDisable(bool $disable): User
     {
         $this->disable = $disable;
         return $this;
@@ -171,43 +171,43 @@ class User extends FrontendUser
     /**
      * @return bool
      */
-    public function getDisable()
+    public function getDisable(): bool
     {
         return $this->disable;
     }
 
     /**
-     * @param \bool $txFemanagerConfirmedbyadmin
+     * @param bool $txFemanagerConfirmedbyadmin
      * @return User
      */
-    public function setTxFemanagerConfirmedbyadmin($txFemanagerConfirmedbyadmin)
+    public function setTxFemanagerConfirmedbyadmin(bool $txFemanagerConfirmedbyadmin): User
     {
         $this->txFemanagerConfirmedbyadmin = $txFemanagerConfirmedbyadmin;
         return $this;
     }
 
     /**
-     * @return \bool
+     * @return bool
      */
-    public function getTxFemanagerConfirmedbyadmin()
+    public function getTxFemanagerConfirmedbyadmin(): bool
     {
         return $this->txFemanagerConfirmedbyadmin;
     }
 
     /**
-     * @param \bool $txFemanagerConfirmedbyuser
+     * @param bool $txFemanagerConfirmedbyuser
      * @return User
      */
-    public function setTxFemanagerConfirmedbyuser($txFemanagerConfirmedbyuser)
+    public function setTxFemanagerConfirmedbyuser(bool $txFemanagerConfirmedbyuser): User
     {
         $this->txFemanagerConfirmedbyuser = $txFemanagerConfirmedbyuser;
         return $this;
     }
 
     /**
-     * @return \bool
+     * @return bool
      */
-    public function getTxFemanagerConfirmedbyuser()
+    public function getTxFemanagerConfirmedbyuser(): bool
     {
         return $this->txFemanagerConfirmedbyuser;
     }
@@ -216,7 +216,7 @@ class User extends FrontendUser
      * @param bool $ignoreDirty
      * @return User
      */
-    public function setIgnoreDirty($ignoreDirty)
+    public function setIgnoreDirty(bool $ignoreDirty): User
     {
         $this->ignoreDirty = $ignoreDirty;
         return $this;
@@ -225,7 +225,7 @@ class User extends FrontendUser
     /**
      * @return bool
      */
-    public function getIgnoreDirty()
+    public function getIgnoreDirty(): bool
     {
         return $this->ignoreDirty;
     }
@@ -235,7 +235,7 @@ class User extends FrontendUser
      *
      * @return int $gender
      */
-    public function getGender()
+    public function getGender(): int
     {
         return $this->gender;
     }
@@ -246,7 +246,7 @@ class User extends FrontendUser
      * @param int $gender
      * @return User
      */
-    public function setGender($gender)
+    public function setGender(int $gender): User
     {
         $this->gender = $gender;
         return $this;
@@ -257,7 +257,7 @@ class User extends FrontendUser
      *
      * @return \DateTime $dateOfBirth
      */
-    public function getDateOfBirth()
+    public function getDateOfBirth(): \DateTime
     {
         return $this->dateOfBirth;
     }
@@ -268,11 +268,9 @@ class User extends FrontendUser
      * @param \DateTime $dateOfBirth
      * @return User
      */
-    public function setDateOfBirth($dateOfBirth)
+    public function setDateOfBirth(\DateTime $dateOfBirth): User
     {
-        if ($dateOfBirth instanceof \DateTime) {
-            $dateOfBirth->setTime(0, 0, 0);
-        }
+        $dateOfBirth->setTime(0, 0);
         $this->dateOfBirth = $dateOfBirth;
         return $this;
     }
@@ -293,7 +291,7 @@ class User extends FrontendUser
      * @param bool $terms
      * @return User
      */
-    public function setTerms(bool $terms)
+    public function setTerms(bool $terms): User
     {
         $this->terms = $terms;
         $this->setTermsDateOfAcceptance();
@@ -303,7 +301,7 @@ class User extends FrontendUser
     /**
      * @return \DateTime
      */
-    public function getTermsDateOfAcceptance()
+    public function getTermsDateOfAcceptance(): \DateTime
     {
         return $this->termsDateOfAcceptance;
     }
@@ -313,7 +311,7 @@ class User extends FrontendUser
      *
      * @return User
      */
-    protected function setTermsDateOfAcceptance()
+    protected function setTermsDateOfAcceptance(): User
     {
         if ($this->termsDateOfAcceptance === null) {
             $now = new \DateTime();
@@ -350,7 +348,7 @@ class User extends FrontendUser
      * @param string $txExtbaseType
      * @return User
      */
-    public function setTxExtbaseType($txExtbaseType)
+    public function setTxExtbaseType(string $txExtbaseType): User
     {
         $this->txExtbaseType = $txExtbaseType;
         return $this;
@@ -359,12 +357,12 @@ class User extends FrontendUser
     /**
      * @return string
      */
-    public function getTxExtbaseType()
+    public function getTxExtbaseType(): string
     {
         return $this->txExtbaseType;
     }
 
-    public function getFirstImage()
+    public function getFirstImage(): ?\TYPO3\CMS\Extbase\Domain\Model\FileReference
     {
         $images = $this->getImage();
         foreach ($images as $image) {
@@ -377,7 +375,7 @@ class User extends FrontendUser
      * @param string $passwordAutoGenerated
      * @return User
      */
-    public function setPasswordAutoGenerated($passwordAutoGenerated)
+    public function setPasswordAutoGenerated(string $passwordAutoGenerated): User
     {
         $this->passwordAutoGenerated = $passwordAutoGenerated;
         return $this;
@@ -386,7 +384,7 @@ class User extends FrontendUser
     /**
      * @return string
      */
-    public function getPasswordAutoGenerated()
+    public function getPasswordAutoGenerated(): string
     {
         return $this->passwordAutoGenerated;
     }
@@ -404,11 +402,11 @@ class User extends FrontendUser
     /**
      * Workaround to disable persistence in updateAction
      *
-     * @param null $propertyName
+     * @param string|null $propertyName
      * @return bool
      */
-    public function _isDirty($propertyName = null)
+    public function _isDirty(?string $propertyName = null): bool
     {
-        return $this->getIgnoreDirty() ? false : parent::_isDirty($propertyName);
+        return !$this->getIgnoreDirty() && parent::_isDirty($propertyName);
     }
 }

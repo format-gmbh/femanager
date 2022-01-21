@@ -24,7 +24,7 @@ class UserRepository extends Repository
      * @param int $uid fe_users UID
      * @return User
      */
-    public function findByUid($uid)
+    public function findByUid(int $uid)
     {
         $query = $this->createQuery();
         $this->ignoreEnableFieldsAndStoragePage($query);
@@ -45,7 +45,7 @@ class UserRepository extends Repository
      * @param array $filter Filter Array
      * @return QueryResultInterface|array
      */
-    public function findByUsergroups($userGroupList, $settings, $filter)
+    public function findByUsergroups(string $userGroupList, array $settings, array $filter)
     {
         $query = $this->createQuery();
 
@@ -99,12 +99,12 @@ class UserRepository extends Repository
     /**
      * Check if there is already an entry in the table
      *
-     * @param $field
-     * @param $value
-     * @param User $user Existing User
+     * @param string $field
+     * @param string $value
+     * @param ?User $user
      * @return User|null
      */
-    public function checkUniqueDb($field, $value, User $user = null)
+    public function checkUniqueDb(string $field, string $value, User $user = null): ?User
     {
         $query = $this->createQuery();
         $this->ignoreEnableFieldsAndStoragePageAndStarttime($query);
@@ -126,12 +126,12 @@ class UserRepository extends Repository
     /**
      * Check if there is already an entry in the table on current page
      *
-     * @param $field
-     * @param $value
-     * @param \In2code\Femanager\Domain\Model\User $user Existing User
+     * @param string $field
+     * @param string $value
+     * @param ?\In2code\Femanager\Domain\Model\User $user
      * @return User|null
      */
-    public function checkUniquePage($field, $value, User $user = null)
+    public function checkUniquePage(string $field, string $value, User $user = null): ?User
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -273,7 +273,7 @@ class UserRepository extends Repository
      * @param int $pageIdentifier
      * @return array
      */
-    protected function getTreeList($pageIdentifier)
+    protected function getTreeList(int $pageIdentifier)
     {
         $queryGenerator = $this->objectManager->get(QueryGenerator::class);
         $treeList = $queryGenerator->getTreeList($pageIdentifier, 99, 0, '1');
@@ -304,7 +304,7 @@ class UserRepository extends Repository
      * Find All
      *
      * @param string $mail
-     * @return QueryResultInterface|array
+     * @return object
      */
     public function findFirstByEmail(string $mail)
     {

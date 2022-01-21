@@ -28,7 +28,7 @@ abstract class AbstractUtility
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getTcaFromTable($table = 'fe_users'): array
+    protected static function getTcaFromTable(string $table = 'fe_users'): array
     {
         $tca = [];
         if (!empty($GLOBALS['TCA'][$table])) {
@@ -102,7 +102,7 @@ abstract class AbstractUtility
 
     /**
      * @return ContentObjectRenderer
-     * @throws Exception
+     * @throws \Exception
      */
     protected static function getContentObject(): ContentObjectRenderer
     {
@@ -112,7 +112,7 @@ abstract class AbstractUtility
     /**
      * @return ConfigurationManagerInterface
      * @codeCoverageIgnore
-     * @throws Exception
+     * @throws \Exception
      */
     protected static function getConfigurationManager(): ConfigurationManagerInterface
     {

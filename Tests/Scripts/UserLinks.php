@@ -18,17 +18,17 @@ class UserLinks
     public $cObj;
 
     /**
-     * @var string
+     * @var ?string
      */
     protected $username;
 
     /**
-     * @var int
+     * @var ?int
      */
     protected $pid;
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -44,9 +44,9 @@ class UserLinks
 
     /**
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
-    public function links()
+    public function links(): string
     {
         $row = $this->getUserData($this->username);
         $content = '<h2>Get confirmation links of one FE_User</h2>';
@@ -67,7 +67,7 @@ class UserLinks
      *
      * @return string
      */
-    public function getAdminConfirmationUri(array $row)
+    public function getAdminConfirmationUri(array $row): string
     {
         $params = '';
         $params .= '&tx_femanager_pi1[user]=' . $row['uid'];
@@ -93,7 +93,7 @@ class UserLinks
      *
      * @return string
      */
-    public function getUserConfirmationUri(array $row)
+    public function getUserConfirmationUri(array $row): string
     {
         $params = '';
         $params .= '&tx_femanager_pi1[user]=' . $row['uid'];
@@ -116,7 +116,7 @@ class UserLinks
      * @param array $row
      * @return string
      */
-    protected function getHash(array $row)
+    protected function getHash(array $row): string
     {
         $user = new \In2code\Femanager\Domain\Model\User();
         $user->setUsername($row['username']);
@@ -125,10 +125,10 @@ class UserLinks
     }
 
     /**
-     * @param $username
-     * @return array|false|null
+     * @param string $username
+     * @return array|false|null|string
      */
-    protected function getUserData($username)
+    protected function getUserData(string $username)
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('fe_users');
@@ -174,6 +174,6 @@ class UserLinks
             $content = 'error: ' . $e->getMessage();
         }
 
-        return $content;
+        return $content ?? '';
     }
 }

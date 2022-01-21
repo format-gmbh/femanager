@@ -48,7 +48,7 @@ class UserUtility extends AbstractUtility
      * @param string $propertyName
      * @return string|null
      */
-    public static function getPropertyFromUser($propertyName = 'uid')
+    public static function getPropertyFromUser(string $propertyName = 'uid')
     {
         if (!empty(self::getTypoScriptFrontendController()->fe_user->user[$propertyName])) {
             return self::getTypoScriptFrontendController()->fe_user->user[$propertyName];
@@ -68,17 +68,16 @@ class UserUtility extends AbstractUtility
      *
      * @return array
      */
-    public static function getCurrentUsergroupUids()
+    public static function getCurrentUsergroupUids(): array
     {
         $currentLoggedInUser = self::getCurrentUser();
-        $usergroupUids = [];
         if ($currentLoggedInUser !== null) {
             foreach ($currentLoggedInUser->getUsergroup() as $usergroup) {
                 $usergroupUids[] = $usergroup->getUid();
             }
         }
 
-        return $usergroupUids;
+        return $usergroupUids ?? [];
     }
 
     /**
@@ -87,7 +86,7 @@ class UserUtility extends AbstractUtility
      * @param User $user
      * @return User $user
      */
-    public static function fallbackUsernameAndPassword(User $user)
+    public static function fallbackUsernameAndPassword(User $user): User
     {
         $settings = self::getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -125,7 +124,7 @@ class UserUtility extends AbstractUtility
      * @param array $settings
      * @return User
      */
-    public static function takeEmailAsUsername(User $user, array $settings)
+    public static function takeEmailAsUsername(User $user, array $settings): User
     {
         if ($settings['new']['fillEmailWithUsername'] === '1') {
             $user->setEmail($user->getUsername());
@@ -140,16 +139,16 @@ class UserUtility extends AbstractUtility
      * @param User $user
      * @param array $settings
      * @param string $controllerName
-     * @return User $object
+     * @return User
      */
-    public static function overrideUserGroup(User $user, $settings, $controllerName = 'new')
+    public static function overrideUserGroup(User $user, array $settings, string $controllerName = 'new'): User
     {
         if (!empty($settings[$controllerName]['overrideUserGroup'])) {
             $user->removeAllUsergroups();
             $usergroupUids = GeneralUtility::trimExplode(',', $settings[$controllerName]['overrideUserGroup'], true);
             foreach ($usergroupUids as $usergroupUid) {
                 /** @var UserGroup $usergroup */
-                $usergroup = self::getUserGroupRepository()->findByUid($usergroupUid);
+                $usergroup = self::getUserGroupRepository()->findByUid((int)$usergroupUid);
                 $user->addUsergroup($usergroup);
             }
         }
@@ -164,7 +163,7 @@ class UserUtility extends AbstractUtility
      * @param string $method
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      */
-    public static function convertPassword(User $user, $method)
+    public static function convertPassword(User $user, string $method)
     {
         if (array_key_exists('password', UserUtility::getDirtyPropertiesFromUser($user))) {
             self::hashPassword($user, $method);
@@ -178,7 +177,7 @@ class UserUtility extends AbstractUtility
      * @param string $method "Argon2i", "Bcrypt", "Pbkdf2", "Phpass", "Blowfish", "md5" or "none" ("sha1" for TYPO3 V8)
      * @throws \TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException
      */
-    public static function hashPassword(User &$user, $method)
+    public static function hashPassword(User &$user, string $method)
     {
         $hashInstance = false;
         $saltedHashPassword = $user->getPassword();
@@ -230,9 +229,8 @@ class UserUtility extends AbstractUtility
      *            [firstName][old] = Alex
      *            [firstName][new] = Alexander
      */
-    public static function getDirtyPropertiesFromUser(User $changedObject)
+    public static function getDirtyPropertiesFromUser(User $changedObject): array
     {
-        $dirtyProperties = [];
         $ignoreProperties = [
             'txFemanagerChangerequest',
             'ignoreDirty',
@@ -270,7 +268,7 @@ class UserUtility extends AbstractUtility
             }
         }
 
-        return $dirtyProperties;
+        return $dirtyProperties ?? [];
     }
 
     /**
@@ -280,7 +278,7 @@ class UserUtility extends AbstractUtility
      * @param array $dirtyProperties
      * @return User $user
      */
-    public static function rollbackUserWithChangeRequest($user, $dirtyProperties)
+    public static function rollbackUserWithChangeRequest(User $user, array $dirtyProperties): User
     {
         $existingProperties = $user->_getCleanProperties();
 
@@ -316,7 +314,7 @@ class UserUtility extends AbstractUtility
      * @param User $user
      * @return bool
      */
-    public static function checkFrontendSessionToUser(User $user)
+    public static function checkFrontendSessionToUser(User $user): bool
     {
         $queryBuilder = self::getConnectionPool()->getQueryBuilderForTable('fe_sessions');
 
@@ -337,7 +335,7 @@ class UserUtility extends AbstractUtility
      * @param User $user
      * @param string|null $storagePids
      */
-    public static function login(User $user, $storagePids = null)
+    public static function login(User $user, string $storagePids = null)
     {
         // ensure a session cookie is set (in case there is no session yet)
         $GLOBALS['TSFE']->fe_user->setAndSaveSessionData('dummy', true);

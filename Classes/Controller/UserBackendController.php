@@ -202,11 +202,13 @@ class UserBackendController extends AbstractController
     }
 
     /**
-     * @param $status
-     * @param $userIdentifier
-     * @param $user
+     * @param string $status
+     * @param int $userIdentifier
+     * @param \In2code\Femanager\Domain\Model\User $user
+     * @return mixed
+     * @throws \TYPO3\CMS\Core\Exception\SiteNotFoundException
      */
-    public function getFrontendRequestResult($status, $userIdentifier, $user)
+    public function getFrontendRequestResult(string $status, int $userIdentifier, User $user)
     {
         /** @var SiteFinder $siteFinder */
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);

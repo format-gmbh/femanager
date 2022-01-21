@@ -4,6 +4,7 @@ namespace In2code\Femanager\Utility;
 
 use In2code\Femanager\Domain\Model\User;
 use In2code\Femanager\Domain\Model\UserGroup;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -37,10 +38,8 @@ class FrontendUtility extends AbstractUtility
      */
     public static function getFrontendLanguageUid(): int
     {
-        $languageUid = 0;
-        $languageAspect = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
-        $languageUid = $languageAspect->getId();
-        return $languageUid;
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        return $languageAspect->getId() ?: 0;
     }
 
     /**
@@ -74,7 +73,7 @@ class FrontendUtility extends AbstractUtility
      */
     public static function forceValues(User $user, array $settings)
     {
-        foreach ((array)$settings as $field => $config) {
+        foreach ($settings as $field => $config) {
             $config = null;
             if (stristr($field, '.')) {
                 continue;
@@ -91,19 +90,19 @@ class FrontendUtility extends AbstractUtility
      *
      * @param User $user
      * @param string $field
-     * @param any $value
+     * @param mixed $value
      */
     public static function forceValue(User $user, string $field, $value): void
     {
         if ($field === 'usergroup') {
             // need objectstorage for usergroup field
             $user->removeAllUsergroups();
-            $values = GeneralUtility::trimExplode(',', $value, true);
+            $values = GeneralUtility::trimExplode(',', (string)$value, true);
             $userGroupRepository = self::getUserGroupRepository();
 
             foreach ($values as $usergroupUid) {
                 /** @var UserGroup $usergroup */
-                $usergroup = $userGroupRepository->findByUid($usergroupUid);
+                $usergroup = $userGroupRepository->findByUid((int)$usergroupUid);
                 $user->addUsergroup($usergroup);
             }
         } else {
